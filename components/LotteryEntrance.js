@@ -44,16 +44,17 @@ export default function LotteryEntrance() {
         params: {},
     })
 
+    async function updateUI() {
+        const entranceFeeFromCall = (await getEntranceFee()).toString()
+        const numPlayersFromCall = (await getNumberOfPlayers()).toString()
+        const recentWinnerFromCall = await getRecentWinner()
+        setEntranceFee(entranceFeeFromCall)
+        setNumPlayers(numPlayersFromCall)
+        setRecentWinner(recentWinnerFromCall)
+    }
+
     useEffect(() => {
         if (isWeb3Enabled) {
-            async function updateUI() {
-                const entranceFeeFromCall = (await getEntranceFee()).toString()
-                const numPlayersFromCall = (await getNumberOfPlayers()).toString()
-                const recentWinnerFromCall = await getRecentWinner()
-                setEntranceFee(entranceFeeFromCall)
-                setNumPlayers(numPlayersFromCall)
-                setRecentWinner(recentWinnerFromCall)
-            }
             updateUI()
         }
     }, [isWeb3Enabled])
@@ -61,6 +62,7 @@ export default function LotteryEntrance() {
     const handleSuccess = async function (tx) {
         await tx.wait(1)
         handleNewNotification()
+        updateUI()
     }
 
     const handleNewNotification = function () {
@@ -89,6 +91,8 @@ export default function LotteryEntrance() {
                         Enter Raffle
                     </button>
                     Entrance Fee: {ethers.utils.formatUnits(entranceFee, "ether")} ETH
+                    Number Of Players: {numPlayers}
+                    Recent Winner: {recentWinner}
                 </div>
             ) : (
                 <div>No Raffle AdressDeteceted</div>
