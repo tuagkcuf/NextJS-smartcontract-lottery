@@ -1,6 +1,5 @@
 import Head from "next/head"
-import ManualHeader from "../../components/ManualHeader.jsx"
-import styles from "@/styles/Home.module.css"
+import ManualHeader from "../components/ManualHeader.jsx"
 
 export default function Home() {
     return (
