@@ -3,7 +3,8 @@ import { ConnectButton } from "web3uikit"
 export default function Header() {
     return (
         <div>
-            <ConnectButton />
+            Decentralized Lottery
+            <ConnectButton moralisAuth={false} />
         </div>
     )
 }
